@@ -2,6 +2,40 @@ package main
 
 import "fmt"
 
+type taskList struct {
+	listaTareas []*task // Agregamos el elemento original, no una copia.
+}
+
+func (tl *taskList) agregarLista(t *task) {
+	tl.listaTareas = append(tl.listaTareas, t)
+}
+
+func (tl *taskList) eliminarTarea(index int) {
+	// Los ... indica que envio mas de un elemento a agregar como parametro.
+	tl.listaTareas = append(tl.listaTareas[:index], tl.listaTareas[index+1:]...)
+}
+
+func (tl *taskList) imprimirTareas() {
+	for i := 0; i < len(tl.listaTareas); i++ {
+		fmt.Println(tl.listaTareas[i])
+	}
+}
+
+func (tl *taskList) imprimirTareasRange() {
+	for _, value := range tl.listaTareas {
+		fmt.Println(value)
+		//fmt.Println(value)
+	}
+}
+
+func (tl *taskList) imprimirListaCompletados() {
+	for _, tarea := range tl.listaTareas {
+		if tarea.completado {
+			fmt.Println(tarea)
+		}
+	}
+}
+
 type task struct {
 	nombre      string
 	descripcion string
@@ -37,19 +71,48 @@ func (t *task) actualizarNombre(name string) {
 }
 
 func main() {
-	t := task{
+	t1 := &task{
 		nombre:      "Mi curso Go",
 		descripcion: "Completar curso de go implementando lista tareas",
 	}
 
-	fmt.Println(t)
-
-	t.actualizarDescripcionCopia("Nueva descripcion")
-	fmt.Println(t)
+	/*** PRUEBA PUNTEROS
+	fmt.Println(t1)
+	t1.actualizarDescripcionCopia("Nueva descripcion")
+	fmt.Println(t1)
 	// La descripción no cambio! Esto se debe a que se utilizo una copia y no la referencia
 	// al struct task declarado en main.
-	// Modifiquemos la reciver functions y que se declaren mediant *.
-	t.actualizarDescripcion("Se actualizo ahora si")
-	fmt.Println(t)
+	// Modifiquemos las reciver functions y que se declaren mediante *.
+	t1.actualizarDescripcion("Se actualizo ahora si")
+	fmt.Println(t1)
+	***** FIN PRUEBA PUNTEROS ********/
+
+	t2 := &task{
+		nombre:      "Mi Tarea 2 ",
+		descripcion: "Segunda tarea",
+	}
+
+	t3 := &task{
+		nombre:      "Mi Tarea 3 ",
+		descripcion: "Tercera tarea",
+	}
+
+	// t1, t2 y t3 son etiquetas (contienen la direccion a la tarea) al igual que tl a la lista_tareas.
+
+	tl := &taskList{
+		listaTareas: []*task{
+			t1, t2,
+		},
+	}
+
+	tl.agregarLista(t3)
+	tl.imprimirTareas()
+	fmt.Println("Cantidad de elementos en lista tareas", len(tl.listaTareas))
+	tl.eliminarTarea(0)
+	fmt.Println("Cantidad de elementos en lista tareas", len(tl.listaTareas))
+	tl.imprimirTareasRange()
+	tl.listaTareas[0].marcarCompleta()
+	fmt.Println("Tareas completadas:")
+	tl.imprimirListaCompletados()
 
 }

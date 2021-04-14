@@ -19,8 +19,18 @@ func main() {
 		"http://instagram.com",
 	}
 
-	for _, valor := range servidores {
-		go revisarServidor(valor, canal)
+	i := 0
+
+	for {
+		if i > 2 {
+			break
+		}
+		for _, valor := range servidores {
+			go revisarServidor(valor, canal)
+		}
+		time.Sleep(1 + time.Second)
+		fmt.Println()
+		i++
 	}
 
 	fin := time.Since(inicio)

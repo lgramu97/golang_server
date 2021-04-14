@@ -115,4 +115,28 @@ func main() {
 	fmt.Println("Tareas completadas:")
 	tl.imprimirListaCompletados()
 
+	mapaTareas := make(map[string]*taskList)
+	mapaTareas["Lautaro"] = tl
+
+	t4 := &task{
+		nombre:      "Mi Tarea 4 ",
+		descripcion: "Cuarta tarea",
+	}
+
+	t5 := &task{
+		nombre:      "Mi Tarea 5 ",
+		descripcion: "Quinta tarea",
+	}
+
+	lista := &taskList{
+		listaTareas: []*task{
+			t4, t5,
+		},
+	}
+
+	mapaTareas["Otra_Persona"] = lista
+
+	fmt.Println("Tareas Lautaro")
+	mapaTareas["Otra_Persona"].imprimirTareas()
+
 }

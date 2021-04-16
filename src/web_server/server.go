@@ -21,6 +21,15 @@ func (s *Server) Handle(path string, handler http.HandlerFunc) {
 	s.router.rules[path] = handler
 }
 
+// Encadenamiento de middleware, puedo ejecutar el handler si es que paso todos los middleware.
+//permite cadena de middlewares{
+func (s *Server) AddMiddleware(f http.HandlerFunc, middlewares ...MiddleWare) http.HandlerFunc {
+	for _, m := range middlewares {
+		f = m(f)
+	}
+	return f
+}
+
 // Agregamos a la parte de Listen del servidor el manejo de handlers mediante el router.
 func (s *Server) Listen() error {
 	http.Handle("/", s.router) // Endpoint principal.

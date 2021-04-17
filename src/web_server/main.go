@@ -1,6 +1,6 @@
 package main
 
-func main() {
+func Main() {
 	server := NewServer(":3000")
 	server.Handle("GET", "/", HandleRoot)
 	server.Handle("POST", "/create", PostRequest)

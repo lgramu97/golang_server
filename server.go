@@ -1,4 +1,4 @@
-package golang_server
+package _go
 
 import "net/http"
 

@@ -1,10 +1,10 @@
-package golang_server
+package _go
 
 import (
 	"net/http"
 )
 
-// Mapea que hanlder va con que codigo.
+// Router Mapea que hanlder va con que codigo.
 type Router struct {
 	rules map[string]map[string]http.HandlerFunc
 }

@@ -1,4 +1,4 @@
-package golang_server
+package _go
 
 //package main
 // Para usar directamente, sin necesidad de ser un modulo, cambiar todos los package por main.

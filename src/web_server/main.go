@@ -1,4 +1,7 @@
-package main
+package golang_server
+
+//package main
+// Para usar directamente, sin necesidad de ser un modulo, cambiar todos los package por main.
 
 func Main() {
 	server := NewServer(":3000")
